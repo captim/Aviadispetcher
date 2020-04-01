@@ -5,8 +5,31 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Aviadispetcher"
         mc:Ignorable="d"
-        Title="Інформація про рейси" SizeToContent="WidthAndHeight">
+        Title="Інформація про рейси" SizeToContent="WidthAndHeight" FontSize="14" Icon="Airplane.ico">
     <Grid>
+        <Menu x:Name="menu1">
+            <MenuItem x:Name="FileMenuItem" Header="Файл">
+                <MenuItem Header="Завантажити" Name="LoadDataMenuItem"/>
+                <MenuItem Header="Зберегти" Name="SaveDataMenuItem"/>
+            </MenuItem>
+            <MenuItem x:Name="FlightMenuItem" Header="Рейси">
+                <MenuItem Header="Редагувати" Name="EditDataMenuItem"/>
+                <MenuItem Header="Додати" Name="AddDataMenuItem"/>
+            </MenuItem>
+            <MenuItem x:Name="SelFlightMenuItem" Header="Пошук">
+                <MenuItem Header="За містом призначення" Name="SelectXMenuItem"/>
+                <MenuItem Header="За часом вильоту" Name="SelectXYMenuItem"/>
+            </MenuItem>
+        </Menu>
+        <DataGrid x:Name="FlightListDG" HorizontalAlignment="Left" Margin="5,30,5,10" VerticalAlignment="Top" AutoGenerateColumns="False" Height="Auto" Width="Auto">
+            <DataGrid.Columns >
+                <DataGridTextColumn Header = "ID" Binding = "{Binding id}" Width="Auto"/>
+                <DataGridTextColumn Header = "Рейс" Binding = "{Binding number}" Width="Auto"/>
+                <DataGridTextColumn Header = "Місто прильоту" Binding = "{Binding city}" Width="Auto"/>
+                <DataGridTextColumn Header = "Час вильоту" Binding = "{Binding depature_time}" Width="Auto"/>
+                <DataGridTextColumn Header = "Вільних місць" Binding = "{Binding free_seats}" Width="Auto"/>
+            </DataGrid.Columns >
+        </DataGrid>
 
     </Grid>
 </Window>

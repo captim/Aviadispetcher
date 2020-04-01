@@ -1,0 +1,17 @@
+C:\Users\Tim\source\repos\Aviadispetcher\Aviadispetcher\bin\Debug\netcoreapp3.1\Aviadispetcher.exe
+C:\Users\Tim\source\repos\Aviadispetcher\Aviadispetcher\bin\Debug\netcoreapp3.1\Aviadispetcher.deps.json
+C:\Users\Tim\source\repos\Aviadispetcher\Aviadispetcher\bin\Debug\netcoreapp3.1\Aviadispetcher.runtimeconfig.json
+C:\Users\Tim\source\repos\Aviadispetcher\Aviadispetcher\bin\Debug\netcoreapp3.1\Aviadispetcher.runtimeconfig.dev.json
+C:\Users\Tim\source\repos\Aviadispetcher\Aviadispetcher\bin\Debug\netcoreapp3.1\Aviadispetcher.dll
+C:\Users\Tim\source\repos\Aviadispetcher\Aviadispetcher\bin\Debug\netcoreapp3.1\Aviadispetcher.pdb
+C:\Users\Tim\source\repos\Aviadispetcher\Aviadispetcher\obj\Debug\netcoreapp3.1\Aviadispetcher.csprojAssemblyReference.cache
+C:\Users\Tim\source\repos\Aviadispetcher\Aviadispetcher\obj\Debug\netcoreapp3.1\MainWindow.g.cs
+C:\Users\Tim\source\repos\Aviadispetcher\Aviadispetcher\obj\Debug\netcoreapp3.1\App.g.cs
+C:\Users\Tim\source\repos\Aviadispetcher\Aviadispetcher\obj\Debug\netcoreapp3.1\Aviadispetcher_MarkupCompile.cache
+C:\Users\Tim\source\repos\Aviadispetcher\Aviadispetcher\obj\Debug\netcoreapp3.1\Aviadispetcher_MarkupCompile.lref
+C:\Users\Tim\source\repos\Aviadispetcher\Aviadispetcher\obj\Debug\netcoreapp3.1\MainWindow.baml
+C:\Users\Tim\source\repos\Aviadispetcher\Aviadispetcher\obj\Debug\netcoreapp3.1\Aviadispetcher.g.resources
+C:\Users\Tim\source\repos\Aviadispetcher\Aviadispetcher\obj\Debug\netcoreapp3.1\Aviadispetcher.AssemblyInfoInputs.cache
+C:\Users\Tim\source\repos\Aviadispetcher\Aviadispetcher\obj\Debug\netcoreapp3.1\Aviadispetcher.AssemblyInfo.cs
+C:\Users\Tim\source\repos\Aviadispetcher\Aviadispetcher\obj\Debug\netcoreapp3.1\Aviadispetcher.dll
+C:\Users\Tim\source\repos\Aviadispetcher\Aviadispetcher\obj\Debug\netcoreapp3.1\Aviadispetcher.pdb
