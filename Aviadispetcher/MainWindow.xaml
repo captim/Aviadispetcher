@@ -8,15 +8,15 @@
         Title="Інформація про рейси" SizeToContent="WidthAndHeight" FontSize="14" Icon="Airplane.ico">
     <Grid>
         <Menu x:Name="menu1">
-            <MenuItem x:Name="FileMenuItem" Header="Файл">
+            <MenuItem Name="FileMenuItem" Header="Файл">
                 <MenuItem Header="Завантажити" Name="LoadDataMenuItem"/>
                 <MenuItem Header="Зберегти" Name="SaveDataMenuItem"/>
             </MenuItem>
-            <MenuItem x:Name="FlightMenuItem" Header="Рейси">
+            <MenuItem Name="FlightMenuItem" Header="Рейси">
                 <MenuItem Header="Редагувати" Name="EditDataMenuItem"/>
                 <MenuItem Header="Додати" Name="AddDataMenuItem"/>
             </MenuItem>
-            <MenuItem x:Name="SelFlightMenuItem" Header="Пошук">
+            <MenuItem Name="SelFlightMenuItem" Header="Пошук">
                 <MenuItem Header="За містом призначення" Name="SelectXMenuItem"/>
                 <MenuItem Header="За часом вильоту" Name="SelectXYMenuItem"/>
             </MenuItem>

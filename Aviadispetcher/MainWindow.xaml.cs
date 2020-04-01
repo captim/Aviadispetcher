@@ -20,6 +20,7 @@ namespace Aviadispetcher
     /// </summary>
     public partial class MainWindow : Window
     {
+        public List<Flight> fList = new List<Flight>(85);
         public MainWindow()
         {
             InitializeComponent();
