@@ -15,3 +15,10 @@ C:\Users\Tim\source\repos\Aviadispetcher\Aviadispetcher\obj\Debug\netcoreapp3.1\
 C:\Users\Tim\source\repos\Aviadispetcher\Aviadispetcher\obj\Debug\netcoreapp3.1\Aviadispetcher.AssemblyInfo.cs
 C:\Users\Tim\source\repos\Aviadispetcher\Aviadispetcher\obj\Debug\netcoreapp3.1\Aviadispetcher.dll
 C:\Users\Tim\source\repos\Aviadispetcher\Aviadispetcher\obj\Debug\netcoreapp3.1\Aviadispetcher.pdb
+C:\Users\Tim\source\repos\Aviadispetcher\Aviadispetcher\bin\Debug\netcoreapp3.1\MySql.Data.dll
+C:\Users\Tim\source\repos\Aviadispetcher\Aviadispetcher\bin\Debug\netcoreapp3.1\Google.Protobuf.dll
+C:\Users\Tim\source\repos\Aviadispetcher\Aviadispetcher\bin\Debug\netcoreapp3.1\BouncyCastle.Crypto.dll
+C:\Users\Tim\source\repos\Aviadispetcher\Aviadispetcher\bin\Debug\netcoreapp3.1\Ubiety.Dns.Core.dll
+C:\Users\Tim\source\repos\Aviadispetcher\Aviadispetcher\bin\Debug\netcoreapp3.1\Renci.SshNet.dll
+C:\Users\Tim\source\repos\Aviadispetcher\Aviadispetcher\bin\Debug\netcoreapp3.1\MySql.Data.xml
+C:\Users\Tim\source\repos\Aviadispetcher\Aviadispetcher\obj\Debug\netcoreapp3.1\Aviadispetcher.csproj.CopyComplete
