@@ -22,4 +22,38 @@ namespace Aviadispetcher
         public System.TimeSpan depature_time { get; set; }
         public int free_seats { get; set; }
     }
+
+    public class FlightList
+    {
+        public List<Flight> Flights_list { get; set; }
+        public const int MAX_AMOUNT = 85;
+        public FlightList()
+        {
+            Flights_list = new List<Flight>();
+        }
+        public void Add(Flight flight)
+        {
+            if (Flights_list.Count == MAX_AMOUNT)
+            {
+                throw new OverflowException("Number of flights is limited. Max number of flights equals 85.");
+            }
+            Flights_list.Add(flight);
+        }
+        public void Delete(int id)
+        {
+            if (Flights_list.Count <= id)
+            {
+                throw new IndexOutOfRangeException("Number of flights is " + Flights_list.Count + " but you want to delete " + id + ".");
+            }
+            Flights_list.RemoveAt(id);
+        }
+        public void Add(Flight flight, int id)
+        {
+            if (Flights_list.Count <= id)
+            {
+                throw new IndexOutOfRangeException("Number of flights is " + Flights_list.Count + " but you want to add " + id + ".");
+            }
+            Flights_list.Insert(id, flight);
+        }
+    }
 }
