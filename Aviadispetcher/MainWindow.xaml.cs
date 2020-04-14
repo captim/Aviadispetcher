@@ -14,15 +14,10 @@ using MySql.Data.MySqlClient;
 
 namespace Aviadispetcher
 {
-    /// <summary>
-    /// Interaction logic for MainWindow.xaml
-    /// </summary>
     public partial class MainWindow : Window
     {
         int flightNum;
         bool flightAdd = false;
-        string connStr;
-        //список записів із файлу даних
         public FlightList fList = new FlightList();
 
         public MainWindow()
@@ -30,30 +25,11 @@ namespace Aviadispetcher
             InitializeComponent();
         }
 
-        /// <summary>
-        /// відкриття файлу БД зі списком рейсів
-        /// </summary>
         private void OpenDbFile()
         {
             try
             {
-                connStr = "Server = localhost; Database = mytest; Uid = root; Pwd = ;";
-                MySqlConnection conn = new MySqlConnection(connStr);
-                MySqlCommand command = new MySqlCommand();
-                string commandString = "SELECT * FROM rozklad;";
-                command.CommandText = commandString;
-                command.Connection = conn;
-                MySqlDataReader reader;
-                command.Connection.Open();
-                reader = command.ExecuteReader();
-                int i = 0;
-                while (reader.Read())
-                {
-                    fList.Add(new Flight((int)reader["id"], (string)reader["number"], (string)reader["city"],
-                        (System.TimeSpan)reader["depature_time"], (int)reader["free_seats"]));
-                    i += 1;
-                }
-                reader.Close();
+                fList = DBConnection.GetInstance().GetAllFlights();
                 FlightListDG.ItemsSource = fList.Flights_list;
             }
             catch (Exception ex)
@@ -71,13 +47,13 @@ namespace Aviadispetcher
                                 errMsg, "Помилка", MessageBoxButton.OK, MessageBoxImage.Error);
             }
         }
+
         private void InfoFlightForm_Loaded(object sender, RoutedEventArgs e)
         {
             OpenDbFile();
-            this.Width = FlightListDG.Margin.Left + FlightListDG.RenderSize.Width + 50;
-            this.Height = FlightListDG.Margin.Top + FlightListDG.RenderSize.Height + 50;
             flightGroupBox.Visibility = Visibility.Hidden;
         }
+
         private void LoadDataMenuItem_Click(object sender, RoutedEventArgs e)
         {
             try
@@ -97,12 +73,12 @@ namespace Aviadispetcher
         private void AddDataMenuItem_Click(Object sender, RoutedEventArgs e)
         {
             flightGroupBox.Visibility = Visibility.Visible;
-            this.Width = flightGroupBox.Margin.Left + flightGroupBox.RenderSize.Width + 20;
-            this.Height = FlightListDG.Margin.Top + FlightListDG.RenderSize.Height + 50 +
-            flightGroupBox.Margin.Top + flightGroupBox.RenderSize.Height + 20;
+            this.Width = FlightListDG.Margin.Left + FlightListDG.RenderSize.Width + 20 + 
+                flightGroupBox.Margin.Right + flightGroupBox.RenderSize.Width;
             flightAdd = true;
             flightNum = fList.Flights_list.Count;
         }
+
         private void SaveButton_Click(object sender, RoutedEventArgs e)
         {
             ChangeFlightListData(flightNum);
@@ -112,12 +88,12 @@ namespace Aviadispetcher
         {
 
         }
+
         private void EditDataMenuItem_Click(object sender, RoutedEventArgs e)
         {
             flightGroupBox.Visibility = Visibility.Visible;
-            this.Width = flightGroupBox.Margin.Left + flightGroupBox.RenderSize.Width + 20;
-            this.Height = FlightListDG.Margin.Top + FlightListDG.RenderSize.Height + 50 +
-            flightGroupBox.Margin.Top + flightGroupBox.RenderSize.Height + 20;
+            this.Width = FlightListDG.Margin.Left + FlightListDG.RenderSize.Width + 20 +
+                flightGroupBox.Margin.Right + flightGroupBox.RenderSize.Width;
             flightAdd = false;
         }
 
@@ -137,6 +113,7 @@ namespace Aviadispetcher
             }
             flightNum = FlightListDG.SelectedIndex;
         }
+
         private void ChangeFlightListData(int num)
         {
             if (flightAdd && fList.Flights_list.Count == FlightList.MAX_AMOUNT)
@@ -159,70 +136,30 @@ namespace Aviadispetcher
             fList.Flights_list[num].free_seats = Convert.ToInt16(freeSeatsTextBox.Text);
             FlightListDG.ItemsSource = null;
             FlightListDG.ItemsSource = fList.Flights_list;
-            if (flightAdd)
+            try
             {
-                try
+                if (flightAdd)
                 {
-                    using (MySqlConnection conn = new MySqlConnection(connStr))
-                    using (MySqlCommand cmd = new MySqlCommand("INSERT INTO rozklad (`number`, `city`, `depature_time`, `free_seats`) VALUES (?, ?, ?, ?)", conn))
-                    {
-                        cmd.Parameters.Add("@number", MySqlDbType.VarChar, 6).Value = numFlightTextBox.Text;
-                        cmd.Parameters.Add("@city", MySqlDbType.VarChar, 25).Value = cityFlightTextBox.Text;
-                        if (TimeSpan.TryParse(timeFlightTextBox.Text, out depTime))
-                        {
-                            cmd.Parameters.Add("@departure_time", MySqlDbType.Time).Value = depTime;
-                        }
-                        cmd.Parameters.Add("@free_seats", MySqlDbType.Int16, 4).Value = Convert.ToInt16(freeSeatsTextBox.Text);
-                        conn.Open();
-                        cmd.ExecuteNonQuery();
-                    }
+                    DBConnection db = DBConnection.GetInstance();
+                    db.Update(fList.Flights_list[num]);
+                    fList.Flights_list[num].id = db.GetMaxId() + 1;
                 }
-                catch (Exception ex)
+                else
                 {
-                    string errMsg;
-                    if (ex.Message == "Unable to connect to any of the specificated MySQL hosts.")
-                    {
-                        errMsg = "Підключіть веб-сервер MySQL та завантажте дані командою Файл-Завантажити";
-                    }
-                    else
-                    {
-                        errMsg = "Для завантаження даних виконайте команду Файл - Завантажити";
-                    }
-                    MessageBox.Show(ex.Message + char.ConvertFromUtf32(13) + char.ConvertFromUtf32(13) + errMsg, "Помилка", MessageBoxButton.OK, MessageBoxImage.Error);
+                    DBConnection.GetInstance().Add(fList.Flights_list[num]);
                 }
-            }
-            else
+            } catch (Exception ex)
             {
-                try
+                string errMsg;
+                if (ex.Message == "Unable to connect to any of the specificated MySQL hosts.")
                 {
-                    using (MySqlConnection conn = new MySqlConnection(connStr))
-                    using (MySqlCommand cmd = new MySqlCommand("UPDATE rozklad SET number = ?, city = ?, depature_time = ?, free_seats = ? WHERE id = ?", conn))
-                    {
-                        cmd.Parameters.Add("@number", MySqlDbType.VarChar, 6).Value = numFlightTextBox.Text;
-                        cmd.Parameters.Add("@city", MySqlDbType.VarChar, 25).Value = cityFlightTextBox.Text;
-                        if (TimeSpan.TryParse(timeFlightTextBox.Text, out depTime))
-                        {
-                            cmd.Parameters.Add("@departure_time", MySqlDbType.Time).Value = depTime;
-                        }
-                        cmd.Parameters.Add("@free_seats", MySqlDbType.Int16, 4).Value = Convert.ToInt16(freeSeatsTextBox.Text);
-                        cmd.Parameters.Add("@id", MySqlDbType.Int32, 11).Value = fList.Flights_list[num].id;
-                        conn.Open();
-                        cmd.ExecuteNonQuery();
-                    }
+                    errMsg = "Підключіть веб-сервер MySQL та завантажте дані командою Файл-Завантажити";
                 }
-                catch (Exception ex)
+                else
                 {
-                    string errMsg;
-                    if (ex.Message == "Unable to connect to any of the specificated MySQL hosts.")
-                    {
-                        errMsg = "Підключіть веб-сервер MySQL та завантажте дані командою Файл-Завантажити";
-                    }
-                    else
-                    {
-                        errMsg = "Для завантаження даних виконайте команду Файл - Завантажити";
-                    }
-                    MessageBox.Show(ex.Message + char.ConvertFromUtf32(13) + char.ConvertFromUtf32(13) + errMsg, "Помилка", MessageBoxButton.OK, MessageBoxImage.Error);
+                    errMsg = "Для завантаження даних виконайте команду Файл - Завантажити";
                 }
+                MessageBox.Show(ex.Message + char.ConvertFromUtf32(13) + char.ConvertFromUtf32(13) + errMsg, "Помилка", MessageBoxButton.OK, MessageBoxImage.Error);
             }
         }
     }
