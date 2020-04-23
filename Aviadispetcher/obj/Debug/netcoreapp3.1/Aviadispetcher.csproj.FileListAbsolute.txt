@@ -22,3 +22,6 @@ C:\Users\Tim\source\repos\Aviadispetcher\Aviadispetcher\bin\Debug\netcoreapp3.1\
 C:\Users\Tim\source\repos\Aviadispetcher\Aviadispetcher\bin\Debug\netcoreapp3.1\Renci.SshNet.dll
 C:\Users\Tim\source\repos\Aviadispetcher\Aviadispetcher\bin\Debug\netcoreapp3.1\MySql.Data.xml
 C:\Users\Tim\source\repos\Aviadispetcher\Aviadispetcher\obj\Debug\netcoreapp3.1\Aviadispetcher.csproj.CopyComplete
+C:\Users\Tim\source\repos\Aviadispetcher\Aviadispetcher\bin\Debug\netcoreapp3.1\Interop.Microsoft.Office.Interop.Word.dll
+C:\Users\Tim\source\repos\Aviadispetcher\Aviadispetcher\obj\Debug\netcoreapp3.1\Interop.Microsoft.Office.Interop.Word.dll
+C:\Users\Tim\source\repos\Aviadispetcher\Aviadispetcher\obj\Debug\netcoreapp3.1\Aviadispetcher.csproj.ResolveComReference.cache

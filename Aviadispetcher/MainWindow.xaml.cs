@@ -16,10 +16,12 @@ namespace Aviadispetcher
 {
     public partial class MainWindow : Window
     {
-        int flightNum;
-        bool flightAdd = false;
+        private int flightNum;
+        private bool flightAdd = false;
         public FlightList fList = new FlightList();
-
+        private List<string> allCities = new List<string>();
+        public static string selectedCity;
+        public static TimeSpan timeFlight;
         public MainWindow()
         {
             InitializeComponent();
@@ -50,8 +52,10 @@ namespace Aviadispetcher
 
         private void InfoFlightForm_Loaded(object sender, RoutedEventArgs e)
         {
+            this.Width = FlightListDG.Margin.Left + FlightListDG.RenderSize.Width + FlightListDG.Margin.Right + 60;
             OpenDbFile();
             flightGroupBox.Visibility = Visibility.Hidden;
+            selFlightGroupBox.Visibility = Visibility.Hidden; 
         }
 
         private void LoadDataMenuItem_Click(object sender, RoutedEventArgs e)
@@ -68,13 +72,14 @@ namespace Aviadispetcher
             }
             OpenDbFile();
             flightGroupBox.Visibility = Visibility.Hidden;
+            this.Width = FlightListDG.Margin.Left + FlightListDG.RenderSize.Width + FlightListDG.Margin.Right + 60;
         }
 
         private void AddDataMenuItem_Click(Object sender, RoutedEventArgs e)
         {
             flightGroupBox.Visibility = Visibility.Visible;
             this.Width = FlightListDG.Margin.Left + FlightListDG.RenderSize.Width + 20 + 
-                flightGroupBox.Margin.Right + flightGroupBox.RenderSize.Width;
+                flightGroupBox.Margin.Right + flightGroupBox.RenderSize.Width + 35;
             flightAdd = true;
             flightNum = fList.Flights_list.Count;
         }
@@ -93,7 +98,7 @@ namespace Aviadispetcher
         {
             flightGroupBox.Visibility = Visibility.Visible;
             this.Width = FlightListDG.Margin.Left + FlightListDG.RenderSize.Width + 20 +
-                flightGroupBox.Margin.Right + flightGroupBox.RenderSize.Width;
+                flightGroupBox.Margin.Right + flightGroupBox.RenderSize.Width + 35;
             flightAdd = false;
         }
 
@@ -160,6 +165,54 @@ namespace Aviadispetcher
                     errMsg = "Для завантаження даних виконайте команду Файл - Завантажити";
                 }
                 MessageBox.Show(ex.Message + char.ConvertFromUtf32(13) + char.ConvertFromUtf32(13) + errMsg, "Помилка", MessageBoxButton.OK, MessageBoxImage.Error);
+            }
+        }
+
+        private void SelectXMenuItem_Click(object sender, RoutedEventArgs e)
+        {
+            selFlightGroupBox.Visibility = Visibility.Visible;
+            sTime.IsEnabled = false;
+            this.Width = FlightListDG.Margin.Left + FlightListDG.RenderSize.Width + 20 +
+                flightGroupBox.Margin.Right + flightGroupBox.RenderSize.Width + 35;
+            allCities = DBConnection.GetInstance().SelectAllCities();
+            cityList.ItemsSource = allCities;
+        }
+        private void SelectXYMenuItem_Click(object sender, RoutedEventArgs e)
+        {
+            selFlightGroupBox.Visibility = Visibility.Visible;
+            sTime.IsEnabled = true;
+            this.Width = FlightListDG.Margin.Left + FlightListDG.RenderSize.Width + 20 +
+                flightGroupBox.Margin.Right + flightGroupBox.RenderSize.Width + 35;
+            allCities = DBConnection.GetInstance().SelectAllCities();
+            cityList.ItemsSource = allCities;
+        }
+        private void selBtn_Click(object sender, RoutedEventArgs e)
+        {
+            selectedCity = (string)cityList.SelectedItem;
+            if (selectedCity == null)
+            {
+                MessageBox.Show("Оберіть пункт призначення", "Увага", MessageBoxButton.OK, MessageBoxImage.Information);
+                return;
+            }
+            string selectedTime = sTime.Text;
+            if (selectedTime.Equals(""))
+            {
+                FlightListDG.ItemsSource = SelectData.SelectX(fList, selectedCity);
+            }
+            else if (TimeSpan.TryParse(selectedTime, out timeFlight))
+            {
+                FlightListDG.ItemsSource = SelectData.SelectXY(fList, selectedCity, timeFlight);
+            }
+        }
+
+        private void saveSelBtn_Click(object sender, RoutedEventArgs e)
+        {
+            if (sTime.IsEnabled)
+            {
+                new ConvertDataInDoc().ConvertFlightListInDoc(SelectData.SelectX(fList, selectedCity), SelectData.SelectXY(fList, selectedCity, timeFlight));
+            } else
+            {
+                new ConvertDataInDoc().ConvertFlightListInDoc(SelectData.SelectX(fList, selectedCity), new List<Flight>());
             }
         }
     }

@@ -88,5 +88,24 @@ namespace Aviadispetcher
             conn.Open();
             cmd.ExecuteNonQuery();
         }
+
+        public List<string> SelectAllCities()
+        {
+            List<string> city = new List<string>();
+            string commandString = "SELECT DISTINCT city FROM rozklad";
+            MySqlCommand command = new MySqlCommand();
+            MySqlConnection conn = new MySqlConnection(connStr);
+            command.CommandText = commandString;
+            command.Connection = conn;
+            MySqlDataReader reader;
+            command.Connection.Open();
+            reader = command.ExecuteReader();
+            while (reader.Read())
+            {
+                city.Add((string)reader["city"]);
+            }
+            reader.Close();
+            return city;
+        }
     }
 }
