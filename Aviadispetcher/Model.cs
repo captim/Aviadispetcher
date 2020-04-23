@@ -55,5 +55,21 @@ namespace Aviadispetcher
             }
             Flights_list.Insert(id, flight);
         }
+        public override bool Equals(object obj)
+        {
+            FlightList list = (FlightList)obj;
+            if (list.Flights_list.Count != this.Flights_list.Count)
+            {
+                return false;
+            }
+            for(int i = 0; i < list.Flights_list.Count; i++)
+            {
+                if (!list.Flights_list[i].Equals(this.Flights_list[i]))
+                {
+                    return false;
+                }
+            }
+            return true;
+        }
     }
 }

@@ -25,3 +25,5 @@ C:\Users\Tim\source\repos\Aviadispetcher\Aviadispetcher\obj\Debug\netcoreapp3.1\
 C:\Users\Tim\source\repos\Aviadispetcher\Aviadispetcher\bin\Debug\netcoreapp3.1\Interop.Microsoft.Office.Interop.Word.dll
 C:\Users\Tim\source\repos\Aviadispetcher\Aviadispetcher\obj\Debug\netcoreapp3.1\Interop.Microsoft.Office.Interop.Word.dll
 C:\Users\Tim\source\repos\Aviadispetcher\Aviadispetcher\obj\Debug\netcoreapp3.1\Aviadispetcher.csproj.ResolveComReference.cache
+C:\Users\Tim\source\repos\Aviadispetcher\Aviadispetcher\obj\Debug\netcoreapp3.1\LoginForm.g.cs
+C:\Users\Tim\source\repos\Aviadispetcher\Aviadispetcher\obj\Debug\netcoreapp3.1\LoginForm.baml

@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Aviadispetcher"
         mc:Ignorable="d"
-        Title="Інформація про рейси" Height="450" Width="800" FontSize="14" Icon="Airplane.ico" Loaded="InfoFlightForm_Loaded">
+        Title="Інформація про рейси" Height="450" Width="800" FontSize="14" Icon="Airplane.ico" Loaded="InfoFlightForm_Loaded" Activated="InfoFlightForm_Activated">
     <Grid>
         <Grid x:Name="LayoutRoot">
             <Grid.ColumnDefinitions>
@@ -22,15 +22,15 @@
                     <MenuItem Header="Завантажити" Name="LoadDataMenuItem" Click="LoadDataMenuItem_Click"/>
                     <MenuItem Header="Зберегти" Name="SaveDataMenuItem"/>
                 </MenuItem>
-                <MenuItem Name="FlightMenuItem" Header="Рейси">
-                    <MenuItem Header="Редагувати" Name="EditDataMenuItem" Click="EditDataMenuItem_Click"/>
-                    <MenuItem Header="Додати" Name="AddDataMenuItem" Click ="AddDataMenuItem_Click"/>
-                </MenuItem>
                 <MenuItem Name="SelFlightMenuItem" Header="Пошук">
                     <MenuItem Header="За містом призначення" Name="SelectXMenuItem" Click="SelectXMenuItem_Click"/>
                     <MenuItem Header="За часом вильоту" Name="SelectXYMenuItem" Click="SelectXYMenuItem_Click"/>
                 </MenuItem>
-                <MenuItem Name="AuthorizationMenuItem" Header="Авторизація"/>
+                <MenuItem Name="AuthorizationMenuItem" Header="Авторизація" Click="AuthorizationMenuItem_Click"/>
+                <MenuItem Name="FlightMenuItem" Header="Рейси">
+                    <MenuItem Header="Редагувати" Name="EditDataMenuItem" Click="EditDataMenuItem_Click"/>
+                    <MenuItem Header="Додати" Name="AddDataMenuItem" Click ="AddDataMenuItem_Click"/>
+                </MenuItem>
             </Menu>
             <DataGrid Grid.Row="1" Grid.Column="0" x:Name="FlightListDG" HorizontalAlignment="Left"
                       Margin="5,5" VerticalAlignment="Top" AutoGenerateColumns="False" ItemsSource="{Binding}" MouseUp="FlightListDG_MouseUp" MaxHeight="375">
@@ -59,10 +59,10 @@
                     <Label Grid.Column="0" Grid.Row="1" x:Name="timeFlightLabel" Content="Час вильоту" HorizontalAlignment="Left" Margin="10,0,0,0" VerticalAlignment="Center" Width="94" Height="30"/>
                     <Label Grid.Column="0" Grid.Row="2" x:Name="cityFlightLabel" Content="Місто вильоту" HorizontalAlignment="Left" Margin="10,0,0,0" Width="102" VerticalAlignment="Center"/>
                     <Label Grid.Column="0" Grid.Row="3" x:Name="freeSeatsLabel" Content="Вільних місць" HorizontalAlignment="Left" Margin="10,0,0,0" Width="118" VerticalAlignment="Center"/>
-                    <TextBox Grid.Column="1" Grid.Row="0" x:Name="numFlightTextBox" HorizontalAlignment="Left" Margin="10,0,0,0" Text="LL-000" TextWrapping="Wrap" Width="56" TextChanged="TextBox_TextChanged" VerticalAlignment="Center"/>
-                    <TextBox Grid.Column="1" Grid.Row="1" x:Name="timeFlightTextBox" HorizontalAlignment="Left" Margin="10,0,0,0" Text="00:00" TextWrapping="Wrap" VerticalAlignment="Center" Width="56" TextChanged="TextBox_TextChanged" Height="21"/>
-                    <TextBox Grid.Column="1" Grid.Row="2" x:Name="freeSeatsTextBox" HorizontalAlignment="Left" Margin="10,0,0,0" Text="0" TextWrapping="Wrap" Width="56" TextChanged="TextBox_TextChanged" VerticalAlignment="Center"/>
-                    <TextBox Grid.Column="1" Grid.Row="3" x:Name="cityFlightTextBox" HorizontalAlignment="Left" Margin="10,0,0,0" TextWrapping="Wrap" VerticalAlignment="Center" Width="56" TextChanged="TextBox_TextChanged"  Height="22"/>
+                    <TextBox Grid.Column="1" Grid.Row="0" x:Name="numFlightTextBox" HorizontalAlignment="Left" Margin="10,0,0,0" Text="LL-000" TextWrapping="Wrap" Width="56" VerticalAlignment="Center"/>
+                    <TextBox Grid.Column="1" Grid.Row="1" x:Name="timeFlightTextBox" HorizontalAlignment="Left" Margin="10,0,0,0" Text="00:00" TextWrapping="Wrap" VerticalAlignment="Center" Width="56" Height="21"/>
+                    <TextBox Grid.Column="1" Grid.Row="2" x:Name="freeSeatsTextBox" HorizontalAlignment="Left" Margin="10,0,0,0" Text="0" TextWrapping="Wrap" Width="56" VerticalAlignment="Center"/>
+                    <TextBox Grid.Column="1" Grid.Row="3" x:Name="cityFlightTextBox" HorizontalAlignment="Left" Margin="10,0,0,0" TextWrapping="Wrap" VerticalAlignment="Center" Width="56"  Height="22"/>
                     <Button Grid.Column="0" Grid.Row="4" x:Name="saveButton" HorizontalAlignment="Left" Margin="10,0,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.472,0.461" Width="100" Click="SaveButton_Click" Content="Зберегти"/>
                 </Grid>
             </GroupBox>

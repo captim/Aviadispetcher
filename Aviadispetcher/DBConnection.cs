@@ -107,5 +107,13 @@ namespace Aviadispetcher
             reader.Close();
             return city;
         }
+        
+        public void UpdateDataBase(List<Flight> flights)
+        {
+            foreach(Flight flight in flights)
+            {
+                Update(flight);
+            }
+        }
     }
 }

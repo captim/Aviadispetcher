@@ -19,19 +19,25 @@ namespace Aviadispetcher
         private int flightNum;
         private bool flightAdd = false;
         public FlightList fList = new FlightList();
+        public FlightList temp = new FlightList();
         private List<string> allCities = new List<string>();
         public static string selectedCity;
         public static TimeSpan timeFlight;
+        public static Authorization logedUser = new Authorization();
         public MainWindow()
         {
             InitializeComponent();
         }
-
+        
         private void OpenDbFile()
         {
             try
             {
                 fList = DBConnection.GetInstance().GetAllFlights();
+                foreach(Flight flight in fList.Flights_list)
+                {
+                    temp.Add(flight);
+                }
                 FlightListDG.ItemsSource = fList.Flights_list;
             }
             catch (Exception ex)
@@ -55,7 +61,8 @@ namespace Aviadispetcher
             this.Width = FlightListDG.Margin.Left + FlightListDG.RenderSize.Width + FlightListDG.Margin.Right + 60;
             OpenDbFile();
             flightGroupBox.Visibility = Visibility.Hidden;
-            selFlightGroupBox.Visibility = Visibility.Hidden; 
+            selFlightGroupBox.Visibility = Visibility.Hidden;
+            FlightMenuItem.Visibility = Visibility.Hidden;
         }
 
         private void LoadDataMenuItem_Click(object sender, RoutedEventArgs e)
@@ -88,12 +95,7 @@ namespace Aviadispetcher
         {
             ChangeFlightListData(flightNum);
         }
-
-        private void TextBox_TextChanged(object sender, TextChangedEventArgs e)
-        {
-
-        }
-
+        
         private void EditDataMenuItem_Click(object sender, RoutedEventArgs e)
         {
             flightGroupBox.Visibility = Visibility.Visible;
@@ -131,6 +133,7 @@ namespace Aviadispetcher
             {
                 fList.Add(new Flight(fList.Flights_list.Count + 1, "", "", TimeSpan.Zero, 0));
                 num = fList.Flights_list.Count - 1;
+                temp.Add(fList.Flights_list[num]);
             }
             fList.Flights_list[num].number = numFlightTextBox.Text;
             fList.Flights_list[num].city = cityFlightTextBox.Text;
@@ -213,6 +216,27 @@ namespace Aviadispetcher
             } else
             {
                 new ConvertDataInDoc().ConvertFlightListInDoc(SelectData.SelectX(fList, selectedCity), new List<Flight>());
+            }
+        }
+
+        private void AuthorizationMenuItem_Click(object sender, RoutedEventArgs e)
+        {
+            LoginForm log = new LoginForm();
+            log.Show();
+            this.Visibility = Visibility.Collapsed;
+        }
+
+        private void InfoFlightForm_Activated(object sender, EventArgs e)
+        {
+            if (Authorization.logUser == 2)
+            {
+                FlightMenuItem.Visibility = Visibility.Visible;
+                FlightMenuItem.Width = 50;
+            }
+            else
+            {
+                FlightMenuItem.Visibility = Visibility.Hidden;
+                FlightMenuItem.Width = 0;
             }
         }
     }

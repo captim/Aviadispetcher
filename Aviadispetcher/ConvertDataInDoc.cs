@@ -15,7 +15,7 @@ namespace Aviadispetcher
             {
                 filePath = Environment.CurrentDirectory.ToString();
                 wordApp = new Application();
-                wordDoc = wordApp.Documents.Add(filePath + "\\Шаблон_Пошуку_рейсів.dot");
+                wordDoc = wordApp.Documents.Add(filePath + "\\Шаблон_Пошуку_рейсів.dotm");
             }
             catch(Exception ex)
             {
@@ -23,6 +23,7 @@ namespace Aviadispetcher
                     "Помістіть файл Шаблон_Пошуку_рейсів.dot" + char.ConvertFromUtf32(13) +
                     "у каталог із exe-файлом програми і повторіть збереження", "Помилка",
                     System.Windows.MessageBoxButton.OK, System.Windows.MessageBoxImage.Error);
+                return;
             }
             ReplaceText(MainWindow.selectedCity, "[X]");
             ReplaceText(selXList, 1);
