@@ -24,7 +24,7 @@
 
   <ItemGroup>
     <Reference Include="MySql.Data">
-      <HintPath>..\..\..\..\..\..\Program Files (x86)\MySQL\MySQL Connector Net 8.0.19\Assemblies\v4.5.2\MySql.Data.dll</HintPath>
+      <HintPath>bin\Debug\netcoreapp3.1\MySql.Data.dll</HintPath>
     </Reference>
     <Reference Include="office">
       <HintPath>bin\Debug\netcoreapp3.1\Office.dll</HintPath>

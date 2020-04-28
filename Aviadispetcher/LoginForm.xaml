@@ -5,13 +5,13 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Aviadispetcher"
         mc:Ignorable="d"
-        Title="Авторизація" Height="120" Width="240" WindowStyle="ToolWindow" KeyDown="Window_KeyDown" Closed="Window_Closed">
+        Title="Авторизація" Height="150" Width="280" WindowStyle="ToolWindow" KeyDown="Window_KeyDown" Closed="Window_Closed" ResizeMode="NoResize" >
     <Grid>
         <Label Content="Пароль" Name="passwordLable" HorizontalAlignment="Left" Margin="10,0,0,0" VerticalAlignment="Center"/>
         <Label Content="Логін" Name="logLable" HorizontalAlignment="Left" Margin="11,10,0,0" VerticalAlignment="Top"/>
         <TextBox x:Name="logTextBox" HorizontalAlignment="Left" Margin="66,14,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120"/>
         <TextBox x:Name="passwordTextBox" HorizontalAlignment="Left" Margin="66,0,0,0" TextWrapping="Wrap" VerticalAlignment="Center" Width="120"/>
-        <Button  x:Name="okButton" Content="Вхід" HorizontalAlignment="Left" Margin="187,74,0,0" VerticalAlignment="Top" Width="37" Click="okButton_Click"/>
+        <Button  x:Name="okButton" Content="Вхід" HorizontalAlignment="Left" Margin="215,78,0,0" VerticalAlignment="Top" Width="37" Click="okButton_Click"/>
 
     </Grid>
 </Window>
