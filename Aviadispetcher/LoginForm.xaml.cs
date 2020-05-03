@@ -30,7 +30,7 @@ namespace Aviadispetcher
             }
             else
             {
-                MessageBox.Show("Ввведіть правильні дані авторизації.", "Помилка!", MessageBoxButton.OK, MessageBoxImage.Exclamation); 
+                MainWindow.ErrorShow(new Exception(), "Ввведіть правильні дані авторизації.", MessageBoxButton.OK, MessageBoxImage.Error);
             }
         }
 

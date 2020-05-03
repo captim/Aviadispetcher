@@ -51,14 +51,25 @@ namespace Aviadispetcher
                 {
                     errMsg = "Для завантаження файлу виконайте команду Файл-Завантажити";
                 }
-                MessageBox.Show(ex.Message + char.ConvertFromUtf32(13) + char.ConvertFromUtf32(13) +
-                                errMsg, "Помилка", MessageBoxButton.OK, MessageBoxImage.Error);
+                ErrorShow(ex, errMsg, MessageBoxButton.OK, MessageBoxImage.Error);
             }
         }
 
+        public static void ErrorShow(Exception ex, string errMsg,
+            MessageBoxButton MsgBtn, MessageBoxImage MsgImg)
+        {
+            MessageBox.Show(ex.Message + char.ConvertFromUtf32(13) +
+                                            errMsg, "Помилка", MsgBtn, MsgImg);
+        }
+        public void ResizeForm(double width, double height)
+        {
+            this.Width = width;
+            this.Height = height;
+        }
         private void InfoFlightForm_Loaded(object sender, RoutedEventArgs e)
         {
-            this.Width = FlightListDG.Margin.Left + FlightListDG.RenderSize.Width + FlightListDG.Margin.Right + 60;
+            ResizeForm(FlightListDG.Margin.Left + FlightListDG.RenderSize.Width +
+                FlightListDG.Margin.Right + 60, this.Height);
             OpenDbFile();
             flightGroupBox.Visibility = Visibility.Hidden;
             selFlightGroupBox.Visibility = Visibility.Hidden;
@@ -74,19 +85,20 @@ namespace Aviadispetcher
             }
             catch (Exception ex)
             {
-                MessageBox.Show(ex.Message + char.ConvertFromUtf32(13),
-                    "Помилка", MessageBoxButton.OK, MessageBoxImage.Error);
+                ErrorShow(ex, "", MessageBoxButton.OK, MessageBoxImage.Error);
             }
             OpenDbFile();
             flightGroupBox.Visibility = Visibility.Hidden;
-            this.Width = FlightListDG.Margin.Left + FlightListDG.RenderSize.Width + FlightListDG.Margin.Right + 60;
+            ResizeForm(FlightListDG.Margin.Left + FlightListDG.RenderSize.Width +
+                FlightListDG.Margin.Right + 60, this.Height);
+            
         }
 
         private void AddDataMenuItem_Click(Object sender, RoutedEventArgs e)
         {
             flightGroupBox.Visibility = Visibility.Visible;
-            this.Width = FlightListDG.Margin.Left + FlightListDG.RenderSize.Width + 20 + 
-                flightGroupBox.Margin.Right + flightGroupBox.RenderSize.Width + 35;
+            ResizeForm(FlightListDG.Margin.Left + FlightListDG.RenderSize.Width + 20 +
+                flightGroupBox.Margin.Right + flightGroupBox.RenderSize.Width + 35, this.Height);
             flightAdd = true;
             flightNum = fList.Flights_list.Count;
         }
@@ -116,7 +128,7 @@ namespace Aviadispetcher
             }
             catch (Exception ex)
             {
-                MessageBox.Show(ex.Message + char.ConvertFromUtf32(13) + char.ConvertFromUtf32(13), "", MessageBoxButton.OK, MessageBoxImage.Error);
+                ErrorShow(ex, "", MessageBoxButton.OK, MessageBoxImage.Error);
             }
             flightNum = FlightListDG.SelectedIndex;
         }
@@ -125,7 +137,8 @@ namespace Aviadispetcher
         {
             if (flightAdd && fList.Flights_list.Count == FlightList.MAX_AMOUNT)
             {
-                MessageBox.Show("Неможливо додати рейс. Максимальна кількість рейсів = 85. Оберіть рейс для заміни", "Помилка", MessageBoxButton.OK, MessageBoxImage.Error);
+                ErrorShow(new Exception(), "Неможливо додати рейс. Максимальна кількість рейсів = 85. Оберіть рейс для заміни",
+                    MessageBoxButton.OK, MessageBoxImage.Error);
                 return;
             }
             TimeSpan depTime;
@@ -167,7 +180,7 @@ namespace Aviadispetcher
                 {
                     errMsg = "Для завантаження даних виконайте команду Файл - Завантажити";
                 }
-                MessageBox.Show(ex.Message + char.ConvertFromUtf32(13) + char.ConvertFromUtf32(13) + errMsg, "Помилка", MessageBoxButton.OK, MessageBoxImage.Error);
+                ErrorShow(ex, errMsg, MessageBoxButton.OK, MessageBoxImage.Error);
             }
         }
 
@@ -175,8 +188,8 @@ namespace Aviadispetcher
         {
             selFlightGroupBox.Visibility = Visibility.Visible;
             sTime.IsEnabled = false;
-            this.Width = FlightListDG.Margin.Left + FlightListDG.RenderSize.Width + 20 +
-                flightGroupBox.Margin.Right + flightGroupBox.RenderSize.Width + 35;
+            ResizeForm(FlightListDG.Margin.Left + FlightListDG.RenderSize.Width + 20 +
+                flightGroupBox.Margin.Right + flightGroupBox.RenderSize.Width + 35, this.Height);
             allCities = DBConnection.GetInstance().SelectAllCities();
             cityList.ItemsSource = allCities;
         }
@@ -184,8 +197,8 @@ namespace Aviadispetcher
         {
             selFlightGroupBox.Visibility = Visibility.Visible;
             sTime.IsEnabled = true;
-            this.Width = FlightListDG.Margin.Left + FlightListDG.RenderSize.Width + 20 +
-                flightGroupBox.Margin.Right + flightGroupBox.RenderSize.Width + 35;
+            ResizeForm(FlightListDG.Margin.Left + FlightListDG.RenderSize.Width + 20 +
+                flightGroupBox.Margin.Right + flightGroupBox.RenderSize.Width + 35, this.Height);
             allCities = DBConnection.GetInstance().SelectAllCities();
             cityList.ItemsSource = allCities;
         }
@@ -194,7 +207,7 @@ namespace Aviadispetcher
             selectedCity = (string)cityList.SelectedItem;
             if (selectedCity == null)
             {
-                MessageBox.Show("Оберіть пункт призначення", "Увага", MessageBoxButton.OK, MessageBoxImage.Information);
+                ErrorShow(new Exception(), "Оберіть пункт призначення", MessageBoxButton.OK, MessageBoxImage.Information);
                 return;
             }
             string selectedTime = sTime.Text;

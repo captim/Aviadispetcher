@@ -19,9 +19,8 @@ namespace Aviadispetcher
             }
             catch(Exception ex)
             {
-                System.Windows.MessageBox.Show(ex.Message + char.ConvertFromUtf32(13) +
-                    "Помістіть файл Шаблон_Пошуку_рейсів.dot" + char.ConvertFromUtf32(13) +
-                    "у каталог із exe-файлом програми і повторіть збереження", "Помилка",
+                MainWindow.ErrorShow(ex, "Помістіть файл Шаблон_Пошуку_рейсів.dot"
+                    + char.ConvertFromUtf32(13) + "у каталог із exe-файлом програми і повторіть збереження",
                     System.Windows.MessageBoxButton.OK, System.Windows.MessageBoxImage.Error);
                 return;
             }
@@ -34,9 +33,9 @@ namespace Aviadispetcher
                 wordDoc.Save();
             } catch (Exception ex)
             {
-                System.Windows.MessageBox.Show(ex.Message + char.ConvertFromUtf32(13) +
-                    "Помилка збереження відібраних даних", "Помилка",
+                MainWindow.ErrorShow(ex, "Помилка збереження відібраних даних",
                     System.Windows.MessageBoxButton.OK, System.Windows.MessageBoxImage.Error);
+
             }
         }
 
